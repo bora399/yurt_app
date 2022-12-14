@@ -1,13 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yurt_app/pages/homepage.dart';
 import 'package:yurt_app/utils/constants.dart';
 import 'package:yurt_app/utils/widget_funcs.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool ogrenciValue = false;
+  void getPrefOgrenci()async{
+    var _pref = await SharedPreferences.getInstance();
+    ogrenciValue = _pref.getBool("ogrenci")!;
+  }
+  bool belletmenValue = false;
+  void getPrefBelletmen()async{
+    var _pref = await SharedPreferences.getInstance();
+    ogrenciValue = _pref.getBool("belletmen")!;
+  }
+  bool idareValue = false;
+  void getPrefIdare()async{
+    var _pref = await SharedPreferences.getInstance();
+    ogrenciValue = _pref.getBool("idare")!;
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    getPrefOgrenci();
+    getPrefBelletmen();
+    getPrefIdare();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child:Scaffold(
@@ -69,7 +100,15 @@ class LoginPage extends StatelessWidget {
                       addVerticalSpace(size.height/30),
                       ElevatedButton(
                         onPressed:(){
-                          Navigator.push(context,MaterialPageRoute(builder:(context) => const HomePage()));
+                          if(ogrenciValue == true){
+                            Navigator.push(context,MaterialPageRoute(builder:(context) => const HomePage()));
+                          }
+                          if(belletmenValue == true){
+                            Navigator.push(context,MaterialPageRoute(builder:(context) => const HomePage()));
+                          }
+                          if(idareValue == true){
+                            Navigator.push(context,MaterialPageRoute(builder:(context) => const HomePage()));
+                          }
                         },
                         style:ElevatedButton.styleFrom(
                           backgroundColor:Color.fromARGB(255, 34, 37, 69),
