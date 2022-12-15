@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yurt_app/pages/homepage.dart';
+import 'package:yurt_app/pages/belletmenpage.dart';
+import 'package:yurt_app/pages/idarepage.dart';
+import 'package:yurt_app/pages/ogrencipage.dart';
 import 'package:yurt_app/utils/constants.dart';
 import 'package:yurt_app/utils/widget_funcs.dart';
 
@@ -14,18 +16,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool ogrenciValue = false;
   void getPrefOgrenci()async{
-    var _pref = await SharedPreferences.getInstance();
-    ogrenciValue = _pref.getBool("ogrenci")!;
+    var pref = await SharedPreferences.getInstance();
+    ogrenciValue = pref.getBool("ogrenci")!;
   }
   bool belletmenValue = false;
   void getPrefBelletmen()async{
-    var _pref = await SharedPreferences.getInstance();
-    ogrenciValue = _pref.getBool("belletmen")!;
+    var pref = await SharedPreferences.getInstance();
+    belletmenValue = pref.getBool("belletmen")!;
   }
   bool idareValue = false;
   void getPrefIdare()async{
-    var _pref = await SharedPreferences.getInstance();
-    ogrenciValue = _pref.getBool("idare")!;
+    var pref = await SharedPreferences.getInstance();
+    idareValue = pref.getBool("idare")!;
   }
 
   @override
@@ -55,12 +57,12 @@ class _LoginPageState extends State<LoginPage> {
                   child:Column(
                     children: [
                       addVerticalSpace(size.height/4),
-                      Align(alignment:Alignment.center,child: Text("Dijital Pansiyon",style:textThemeDefault.headline1!.copyWith(color:colorWhite))),
+                      Align(alignment:Alignment.center,child: Text("e-Pansiyon",style:textThemeDefault.headline1!.copyWith(color:colorWhite))),
                       addVerticalSpace(size.height/50),
                       Container(
                         decoration:BoxDecoration(
                               borderRadius:BorderRadius.circular(12.0),
-                              color:Color.fromARGB(255, 235, 235, 235),
+                              color:const Color.fromARGB(255, 235, 235, 235),
                             ),
                         height:5.5,
                         width:size.width/1.5,
@@ -104,14 +106,14 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(context,MaterialPageRoute(builder:(context) => const HomePage()));
                           }
                           if(belletmenValue == true){
-                            Navigator.push(context,MaterialPageRoute(builder:(context) => const HomePage()));
+                            Navigator.push(context,MaterialPageRoute(builder:(context) => const BelletmenPage()));
                           }
                           if(idareValue == true){
-                            Navigator.push(context,MaterialPageRoute(builder:(context) => const HomePage()));
+                            Navigator.push(context,MaterialPageRoute(builder:(context) => const IdarePage()));
                           }
                         },
                         style:ElevatedButton.styleFrom(
-                          backgroundColor:Color.fromARGB(255, 34, 37, 69),
+                          backgroundColor:const Color.fromARGB(255, 34, 37, 69),
                         ),
                         child: const Text("GIRIS YAP",style:TextStyle(color:colorWhite,fontWeight:FontWeight.w600,fontSize:18)),
                       ),

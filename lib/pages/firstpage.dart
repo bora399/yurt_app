@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yurt_app/pages/loginpage.dart';
@@ -13,38 +15,38 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   void readySharedPreferences()async{
-    var _pref = await SharedPreferences.getInstance();
+    var pref = await SharedPreferences.getInstance();
     setState((){
       saveOgrenci();
     });
   }
 
   void saveOgrenci()async{
-    var _pref = await SharedPreferences.getInstance();
-    if(_pref.getBool("ogrenci") == true || _pref.getBool("belletmen") == true || _pref.getBool("idare") == true){
-      _pref.setBool("ogrenci",false);
-      _pref.setBool("belletmen",false);
-      _pref.setBool("idare",false);
+    var pref = await SharedPreferences.getInstance();
+    if(pref.getBool("ogrenci") == true || pref.getBool("belletmen") == true || pref.getBool("idare") == true){
+      pref.setBool("ogrenci",false);
+      pref.setBool("belletmen",false);
+      pref.setBool("idare",false);
     }
-    _pref.setBool("ogrenci",true);
+    pref.setBool("ogrenci",true);
   }
   void saveBelletmen()async{
-    var _pref = await SharedPreferences.getInstance();
-    if(_pref.getBool("ogrenci") == true || _pref.getBool("belletmen") == true || _pref.getBool("idare") == true){
-      _pref.setBool("ogrenci",false);
-      _pref.setBool("belletmen",false);
-      _pref.setBool("idare",false);
+    var pref = await SharedPreferences.getInstance();
+    if(pref.getBool("ogrenci") == true || pref.getBool("belletmen") == true || pref.getBool("idare") == true){
+      pref.setBool("ogrenci",false);
+      pref.setBool("belletmen",false);
+      pref.setBool("idare",false);
     }
-    _pref.setBool("belletmen",true);
+    pref.setBool("belletmen",true);
   }
   void saveIdare()async{
-    var _pref = await SharedPreferences.getInstance();
-    if(_pref.getBool("ogrenci") == true || _pref.getBool("belletmen") == true || _pref.getBool("idare") == true){
-      _pref.setBool("ogrenci",false);
-      _pref.setBool("belletmen",false);
-      _pref.setBool("idare",false);
+    var pref = await SharedPreferences.getInstance();
+    if(pref.getBool("ogrenci") == true || pref.getBool("belletmen") == true || pref.getBool("idare") == true){
+      pref.setBool("ogrenci",false);
+      pref.setBool("belletmen",false);
+      pref.setBool("idare",false);
     }
-    _pref.setBool("idare",true);
+    pref.setBool("idare",true);
   }
 
 

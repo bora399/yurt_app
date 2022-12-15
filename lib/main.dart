@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yurt_app/pages/firstpage.dart';
-import 'package:yurt_app/pages/loginpage.dart';
 
 void main() {
   runApp(const OrganizationApp());
