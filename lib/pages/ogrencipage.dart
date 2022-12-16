@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left:12.0),
-                          child: Align(alignment:Alignment.topLeft,child:Text("Dijital Pansiyon",style:textThemeDefault.headline1!.copyWith(fontSize:25,color:colorWhite,fontWeight:FontWeight.w800))),
+                          child: Align(alignment:Alignment.topLeft,child:Text("e-Pansiyon Öğrenci",style:textThemeDefault.headline1!.copyWith(fontSize:25,color:colorWhite,fontWeight:FontWeight.w800))),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right:12.0),
@@ -78,7 +78,7 @@ class HomePage extends StatelessWidget {
                       children: [
                     ButtonWidget(icon:Icons.report_problem,text:"Arıza Bildir",theme:textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                     ButtonWidget(icon:Icons.man,text:"Görevli Ö.",theme:textThemeDefault.bodyText1!.copyWith(fontSize:16)),
-                    ButtonWidget(icon:Icons.home,text:"Evci İzni",theme:textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                    ButtonWidget(icon:Icons.home,text:"Çarşı İzin",theme:textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                       ],
                     ),
                     addVerticalSpace(size.height/50),
@@ -86,7 +86,7 @@ class HomePage extends StatelessWidget {
                       children: [
                     ButtonWidget(icon:Icons.fastfood,text:"Yemek L.",theme:textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                     ButtonWidget(icon:Icons.sports_soccer,text:"Spor",theme:textThemeDefault.bodyText1!.copyWith(fontSize:18)),
-                    ButtonWidget(icon:Icons.calculate,text:"Kalori Takip",theme:textThemeDefault.bodyText1!.copyWith(fontSize:18)),
+                    ButtonWidget(icon:Icons.music_note,text:"Radyo",theme:textThemeDefault.bodyText1!.copyWith(fontSize:18)),
                       ],
                     ),
                     addVerticalSpace(size.height/50),
