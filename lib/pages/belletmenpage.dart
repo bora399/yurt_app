@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:yurt_app/pages/yoklama/etutyoklama.dart';
 import 'package:yurt_app/utils/constants.dart';
 import 'package:yurt_app/utils/widget_funcs.dart';
 import 'package:yurt_app/widgets/button.dart';
 
 class BelletmenPage extends StatelessWidget {
-  const BelletmenPage({super.key});
+  final String mail;
+  const BelletmenPage({super.key,required this.mail});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class BelletmenPage extends StatelessWidget {
                               alignment:Alignment.center,
                               child: Padding(
                                 padding: const EdgeInsets.only(left:5.0,top:15.0,right:10.0),
-                                child: Text("Hoş Geldin Selçuk!",style:textThemeDefault.bodyText1!.copyWith(fontSize:17)),
+                                child: Text("Hoş Geldin $mail!",style:textThemeDefault.bodyText1!.copyWith(fontSize:17)),
                               ),
                             ),
                           ],
@@ -74,7 +76,7 @@ class BelletmenPage extends StatelessWidget {
                     addVerticalSpace(size.width/20),
                     Row(
                       children: [
-                        ButtonWidget(icon:Icons.people,text:"Etüt Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        ButtonWidget(widget:const EtutYoklama(),icon:Icons.people,text:"Etüt Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                         ButtonWidget(icon:Icons.person_pin_circle,text:"Yat Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                         ButtonWidget(icon:Icons.home,text:"Evci İzin",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                       ],

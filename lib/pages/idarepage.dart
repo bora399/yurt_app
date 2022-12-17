@@ -4,14 +4,15 @@ import 'package:yurt_app/utils/widget_funcs.dart';
 import 'package:yurt_app/widgets/button.dart';
 
 class IdarePage extends StatelessWidget {
-  const IdarePage({super.key});
+  final String mail;
+  const IdarePage({super.key,required this.mail});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child:Scaffold(
-        backgroundColor:Color.fromARGB(255, 30, 32, 64),
+        backgroundColor:const Color.fromARGB(255, 30, 32, 64),
         body:LayoutBuilder(
           builder:(BuildContext context, BoxConstraints constraints){
             return SingleChildScrollView(
@@ -64,7 +65,7 @@ class IdarePage extends StatelessWidget {
                               alignment:Alignment.center,
                               child: Padding(
                                 padding: const EdgeInsets.only(left:5.0,top:15.0,right:10.0),
-                                child: Text("Hoş Geldin Ali!",style:textThemeDefault.bodyText1!.copyWith(fontSize:17)),
+                                child: Text("Hoş Geldin $mail!",style:textThemeDefault.bodyText1!.copyWith(fontSize:17)),
                               ),
                             ),
                           ],
@@ -79,7 +80,7 @@ class IdarePage extends StatelessWidget {
                     ),
                     addVerticalSpace(size.width/20),
                     Row(
-                      children: [
+                      children: const [
                       ],
                     ),
 

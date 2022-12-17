@@ -3,8 +3,9 @@ import 'package:yurt_app/utils/constants.dart';
 import 'package:yurt_app/utils/widget_funcs.dart';
 import 'package:yurt_app/widgets/button.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class OgrenciPage extends StatelessWidget {
+  final String mail;
+  const OgrenciPage({super.key, required this.mail});
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left:20.0,top:15.0,right:10.0),
-                              child: Text("Hoş Geldin Bora!",style:textThemeDefault.bodyText1!.copyWith(fontSize:17)),
+                              child: Text("Hoş Geldin $mail!",style:textThemeDefault.bodyText1!.copyWith(fontSize:17)),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left:20.0,top:15.0,right:10.0),

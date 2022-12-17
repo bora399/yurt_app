@@ -111,7 +111,7 @@ class _FirstPageState extends State<FirstPage> {
               child: InkWell(
                 onTap:(){
                   saveIdare();
-                  Navigator.push(context,MaterialPageRoute(builder:(BuildContext context) => const LoginPage()));
+                  Navigator.pushReplacement(context,MaterialPageRoute(builder:(BuildContext context) => const LoginPage()));
                 },
                 child: Container(
                   color:const Color.fromRGBO(46, 49, 94, 1),
