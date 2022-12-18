@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:yurt_app/pages/yoklama/etutyoklama.dart';
+import 'package:yurt_app/pages/belletmen/odabilgisi.dart';
+import 'package:yurt_app/pages/belletmen/ulaspage.dart';
+import 'package:yurt_app/pages/belletmen/yemelistesipage.dart';
+import 'package:yurt_app/pages/belletmen/yoklama-izin/evciizinpage.dart';
+import 'package:yurt_app/pages/belletmen/yoklama-izin/etutyoklama.dart';
+import 'package:yurt_app/pages/belletmen/yoklama-izin/yatyoklama.dart';
 import 'package:yurt_app/utils/constants.dart';
 import 'package:yurt_app/utils/widget_funcs.dart';
 import 'package:yurt_app/widgets/button.dart';
+
+import 'belletmen/nobetpage.dart';
 
 class BelletmenPage extends StatelessWidget {
   final String mail;
@@ -76,23 +83,23 @@ class BelletmenPage extends StatelessWidget {
                     addVerticalSpace(size.width/20),
                     Row(
                       children: [
-                        ButtonWidget(widget:const EtutYoklama(),icon:Icons.people,text:"Etüt Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
-                        ButtonWidget(icon:Icons.person_pin_circle,text:"Yat Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
-                        ButtonWidget(icon:Icons.home,text:"Evci İzin",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        ButtonWidget(widget:EtutYoklama(mail:mail),icon:Icons.people,text:"Etüt Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        ButtonWidget(widget:YatYoklama(mail:mail),icon:Icons.person_pin_circle,text:"Yat Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        ButtonWidget(widget:EvciIzin(mail:mail),icon:Icons.home,text:"Evci İzin",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                       ],
                     ),
                     addVerticalSpace(size.width/20),
                     Row(
                       children: [
-                        ButtonWidget(icon:Icons.fastfood,text:"Yemek Listesi",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
-                        ButtonWidget(icon:Icons.watch_later,text:"Nöbet Listesi",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
-                        ButtonWidget(icon:Icons.room,text:"Oda Bilgisi",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        ButtonWidget(widget:const YemekPage(),icon:Icons.fastfood,text:"Yemek Listesi",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        ButtonWidget(widget:const NobetPage(),icon:Icons.watch_later,text:"Nöbet Listesi",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        ButtonWidget(widget:const OdaPage(),icon:Icons.room,text:"Oda Bilgisi",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                       ],
                     ),
                     addVerticalSpace(size.width/20),
                     Row(
                       children: [
-                        ButtonWidget(icon:Icons.person,text:"Öğrenciye Ulaş",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        ButtonWidget(widget:const UlasPage(),icon:Icons.person,text:"Öğrenciye Ulaş",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                       ],
                     ),
                     ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yurt_app/pages/belletmen/yemelistesipage.dart';
 import 'package:yurt_app/utils/constants.dart';
 import 'package:yurt_app/utils/widget_funcs.dart';
 import 'package:yurt_app/widgets/button.dart';
@@ -85,7 +86,7 @@ class OgrenciPage extends StatelessWidget {
                     addVerticalSpace(size.height/50),
                     Row(
                       children: [
-                    ButtonWidget(icon:Icons.fastfood,text:"Yemek L.",theme:textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                    ButtonWidget(widget:const YemekPage(),icon:Icons.fastfood,text:"Yemek L.",theme:textThemeDefault.bodyText1!.copyWith(fontSize:16)),
                     ButtonWidget(icon:Icons.sports_soccer,text:"Spor",theme:textThemeDefault.bodyText1!.copyWith(fontSize:18)),
                     ButtonWidget(icon:Icons.music_note,text:"Radyo",theme:textThemeDefault.bodyText1!.copyWith(fontSize:18)),
                       ],
