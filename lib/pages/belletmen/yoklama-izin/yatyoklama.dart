@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:yurt_app/utils/constants.dart';
 import 'package:yurt_app/utils/widget_funcs.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class YatYoklama extends StatefulWidget {
   final String mail;
@@ -13,6 +12,9 @@ class YatYoklama extends StatefulWidget {
 }
 
 class _YatYoklamaState extends State<YatYoklama> {
+  DateTime? dateTime;
+  late String todaysDate;
+
   List<bool> checkboxList = [
     false,
     false,
@@ -29,7 +31,17 @@ class _YatYoklamaState extends State<YatYoklama> {
     super.initState();
     FirebaseFirestore.instance
         .collection('yurtapp')
-        .doc('yatyoklama')
+        .doc('etutyoklama')
+        .collection("23.12.2022")
+        .doc("etutyoklama1")
+        .update({
+      'alanogretmen': widget.mail,
+    });
+    FirebaseFirestore.instance
+        .collection('yurtapp')
+        .doc('etutyoklama2')
+        .collection("23.12.2022")
+        .doc("etutyoklama1")
         .update({
       'alanogretmen': widget.mail,
     });
@@ -40,6 +52,7 @@ class _YatYoklamaState extends State<YatYoklama> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: const Color.fromARGB(255, 65, 70, 144),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -51,6 +64,38 @@ class _YatYoklamaState extends State<YatYoklama> {
                   child: Text("Yat Yoklaması",
                       style:
                           textThemeDefault.bodyText1!.copyWith(fontSize: 32))),
+              addVerticalSpace(size.height / 30),
+              Align(
+                alignment: Alignment.center,
+                child: InkWell(
+                  onTap: ()  {
+                    showDatePicker(
+                      context:context,
+                      initialDate:DateTime.now(),
+                      firstDate : DateTime(2020),
+                      lastDate : DateTime(2024), 
+                    ).then((date){
+                      setState(() {
+                        dateTime = date!;
+                        todaysDate = "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                      });
+                    });
+                  },
+                  child: Container(
+                      width: size.width / 2,
+                      height: size.height / 15,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 51, 123, 181),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Align(
+                              alignment: Alignment.center,
+                              child: Text(dateTime == null ? "Takvimi Gör" : dateTime!.day.toString() + "." + dateTime!.month.toString() + "." + dateTime!.year.toString(),
+                                  style: textThemeDefault.bodyText1!
+                                      .copyWith(fontWeight: FontWeight.w700)))),
+                ),
+              ),
+              addVerticalSpace(size.height / 30),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
@@ -94,6 +139,8 @@ class _YatYoklamaState extends State<YatYoklama> {
                               FirebaseFirestore.instance
                                   .collection('yurtapp')
                                   .doc('yatyoklama')
+                                  .collection(todaysDate)
+                                  .doc("101")
                                   .update({
                                 'borasaltik': newBool,
                               });
@@ -115,6 +162,8 @@ class _YatYoklamaState extends State<YatYoklama> {
                               FirebaseFirestore.instance
                                   .collection('yurtapp')
                                   .doc('yatyoklama')
+                                  .collection(todaysDate)
+                                  .doc("101")
                                   .update({
                                 'ahmetozturk': newBool,
                               });
@@ -136,6 +185,8 @@ class _YatYoklamaState extends State<YatYoklama> {
                               FirebaseFirestore.instance
                                   .collection('yurtapp')
                                   .doc('yatyoklama')
+                                  .collection(todaysDate)
+                                  .doc("101")
                                   .update({
                                 'enescankaya': newBool,
                               });
@@ -157,6 +208,8 @@ class _YatYoklamaState extends State<YatYoklama> {
                               FirebaseFirestore.instance
                                   .collection('yurtapp')
                                   .doc('yatyoklama')
+                                  .collection(todaysDate)
+                                  .doc("101")
                                   .update({
                                 'beratsariboga': newBool,
                               });

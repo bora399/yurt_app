@@ -12,6 +12,10 @@ class EvciIzin extends StatefulWidget {
 }
 
 class _EvciIzinState extends State<EvciIzin> {
+  DateTime? dateTime;
+  late String todaysDate;
+  List<String> dateList = ["", "", "", "", "", "", "", ""];
+
   @override
   void initState() {
     super.initState();
@@ -28,7 +32,6 @@ class _EvciIzinState extends State<EvciIzin> {
   String? dropdownValue6;
   String? dropdownValue7;
   String? dropdownValue8;
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,30 +50,31 @@ class _EvciIzinState extends State<EvciIzin> {
                         style: textThemeDefault.bodyText1!
                             .copyWith(fontSize: 32))),
                 Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                    width: size.width / 1.2,
-                    height: size.height / 15,
-                    decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 54, 52, 155),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(60),
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20.0, top: 15.0, right: 10.0),
-                          child: Text("Yoklama Alan Öğretmen: ${widget.mail}!",
-                              style: textThemeDefault.bodyText1!
-                                  .copyWith(fontSize: 17)),
-                        ),
-                      ],
-                    )),
-              ),            
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      width: size.width / 1.2,
+                      height: size.height / 15,
+                      decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 54, 52, 155),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(60),
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20.0, top: 15.0, right: 10.0),
+                            child: Text(
+                                "Yoklama Alan Öğretmen: ${widget.mail}!",
+                                style: textThemeDefault.bodyText1!
+                                    .copyWith(fontSize: 17)),
+                          ),
+                        ],
+                      )),
+                ),
                 addVerticalSpace(size.height / 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -84,68 +88,92 @@ class _EvciIzinState extends State<EvciIzin> {
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700))),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: DropdownButton<String>(
-                            value: dropdownValue,
-                            hint: const Text("Gideceği Gün",
-                                style: TextStyle(color: colorBlack)),
-                            items: <String>['Cuma', 'Cumartesi', 'Pazar']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style:
-                                      const TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                                FirebaseFirestore.instance
-                                    .collection('yurtapp')
-                                    .doc('evciizin')
-                                    .collection("borasaltik")
-                                    .doc("borasaltik")
-                                    .update({
-                                  'gelecek': dropdownValue,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2024),
+                                ).then((date) {
+                                  setState(() {
+                                    dateTime = date!;
+                                    todaysDate =
+                                        "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                                    FirebaseFirestore.instance
+                                        .collection('yurtapp')
+                                        .doc('evciizin')
+                                        .collection("borasaltik")
+                                        .doc("borasaltik")
+                                        .update({
+                                      'gidecek': todaysDate,
+                                    });
+                                  });
                                 });
-                              });
-                            },
+                              },
+                              child: Container(
+                                  width: size.width / 2.7,
+                                  height: size.height / 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Gideceği Gün",
+                                          style: textThemeDefault.bodyText1!
+                                              .copyWith(
+                                                  color: colorWhite,
+                                                  fontSize: 16)))),
+                            ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: DropdownButton<String>(
-                            value: dropdownValue2,
-                            hint: const Text("Geleceği Gün",
-                                style: TextStyle(color: colorBlack)),
-                            items: <String>['Cuma', 'Cumartesi', 'Pazar']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style:
-                                      const TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue2 = newValue!;
-                                FirebaseFirestore.instance
-                                    .collection('yurtapp')
-                                    .doc('evciizin')
-                                    .collection("borasaltik")
-                                    .doc("borasaltik")
-                                    .update({
-                                  'gidecek': dropdownValue2,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2024),
+                                ).then((date) {
+                                  setState(() {
+                                    dateTime = date!;
+                                    todaysDate =
+                                        "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                                    FirebaseFirestore.instance
+                                        .collection('yurtapp')
+                                        .doc('evciizin')
+                                        .collection("borasaltik")
+                                        .doc("borasaltik")
+                                        .update({
+                                      'gelecek': todaysDate,
+                                    });
+                                  });
                                 });
-                              });
-                            },
+                              },
+                              child: Container(
+                                  width: size.width / 2.7,
+                                  height: size.height / 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Geleceği Gün",
+                                          style: textThemeDefault.bodyText1!
+                                              .copyWith(
+                                                  color: colorWhite,
+                                                  fontSize: 16)))),
+                            ),
                           ),
                         ),
                       ],
@@ -159,75 +187,99 @@ class _EvciIzinState extends State<EvciIzin> {
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700))),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: DropdownButton<String>(
-                            value: dropdownValue3,
-                            hint: const Text("Gideceği Gün",
-                                style: TextStyle(color: colorBlack)),
-                            items: <String>['Cuma', 'Cumartesi', 'Pazar']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style:
-                                      const TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue3 = newValue!;
-                                FirebaseFirestore.instance
-                                    .collection('yurtapp')
-                                    .doc('evciizin')
-                                    .collection("ahmetozturk")
-                                    .doc("ahmetozturk")
-                                    .update({
-                                  'gelecek': dropdownValue3,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2024),
+                                ).then((date) {
+                                  setState(() {
+                                    dateTime = date!;
+                                    todaysDate =
+                                        "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                                    FirebaseFirestore.instance
+                                        .collection('yurtapp')
+                                        .doc('evciizin')
+                                        .collection("ahmetozturk")
+                                        .doc("ahmetozturk")
+                                        .update({
+                                      'gidecek': todaysDate,
+                                    });
+                                  });
                                 });
-                              });
-                            },
+                              },
+                              child: Container(
+                                  width: size.width / 2.7,
+                                  height: size.height / 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Gideceği Gün",
+                                          style: textThemeDefault.bodyText1!
+                                              .copyWith(
+                                                  color: colorWhite,
+                                                  fontSize: 16)))),
+                            ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: DropdownButton<String>(
-                            value: dropdownValue4,
-                            hint: const Text("Geleceği Gün",
-                                style: TextStyle(color: colorBlack)),
-                            items: <String>['Cuma', 'Cumartesi', 'Pazar']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style:
-                                      const TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue4 = newValue!;
-                                FirebaseFirestore.instance
-                                    .collection('yurtapp')
-                                    .doc('evciizin')
-                                    .collection("ahmetozturk")
-                                    .doc("ahmetozturk")
-                                    .update({
-                                  'gidecek': dropdownValue4,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2024),
+                                ).then((date) {
+                                  setState(() {
+                                    dateTime = date!;
+                                    todaysDate =
+                                        "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                                    FirebaseFirestore.instance
+                                        .collection('yurtapp')
+                                        .doc('evciizin')
+                                        .collection("ahmetozturk")
+                                        .doc("ahmetozturk")
+                                        .update({
+                                      'gelecek': todaysDate,
+                                    });
+                                  });
                                 });
-                              });
-                            },
+                              },
+                              child: Container(
+                                  width: size.width / 2.7,
+                                  height: size.height / 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Geleceği Gün",
+                                          style: textThemeDefault.bodyText1!
+                                              .copyWith(
+                                                  color: colorWhite,
+                                                  fontSize: 16)))),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
-                addVerticalSpace(size.height/20),
+                addVerticalSpace(size.height / 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -240,68 +292,92 @@ class _EvciIzinState extends State<EvciIzin> {
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700))),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: DropdownButton<String>(
-                            value: dropdownValue5,
-                            hint: const Text("Gideceği Gün",
-                                style: TextStyle(color: colorBlack)),
-                            items: <String>['Cuma', 'Cumartesi', 'Pazar']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style:
-                                      const TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue5 = newValue!;
-                                FirebaseFirestore.instance
-                                    .collection('yurtapp')
-                                    .doc('evciizin')
-                                    .collection("enescankaya")
-                                    .doc("enescankaya")
-                                    .update({
-                                  'gelecek': dropdownValue5,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2024),
+                                ).then((date) {
+                                  setState(() {
+                                    dateTime = date!;
+                                    todaysDate =
+                                        "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                                    FirebaseFirestore.instance
+                                        .collection('yurtapp')
+                                        .doc('evciizin')
+                                        .collection("enescankaya")
+                                        .doc("enescankaya")
+                                        .update({
+                                      'gidecek': todaysDate,
+                                    });
+                                  });
                                 });
-                              });
-                            },
+                              },
+                              child: Container(
+                                  width: size.width / 2.7,
+                                  height: size.height / 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Gideceği Gün",
+                                          style: textThemeDefault.bodyText1!
+                                              .copyWith(
+                                                  color: colorWhite,
+                                                  fontSize: 16)))),
+                            ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: DropdownButton<String>(
-                            value: dropdownValue6,
-                            hint: const Text("Geleceği Gün",
-                                style: TextStyle(color: colorBlack)),
-                            items: <String>['Cuma', 'Cumartesi', 'Pazar']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style:
-                                      const TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue6 = newValue!;
-                                FirebaseFirestore.instance
-                                    .collection('yurtapp')
-                                    .doc('evciizin')
-                                    .collection("enescankaya")
-                                    .doc("enescankaya")
-                                    .update({
-                                  'gidecek': dropdownValue6,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2024),
+                                ).then((date) {
+                                  setState(() {
+                                    dateTime = date!;
+                                    todaysDate =
+                                        "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                                    FirebaseFirestore.instance
+                                        .collection('yurtapp')
+                                        .doc('evciizin')
+                                        .collection("enescankaya")
+                                        .doc("enescankaya")
+                                        .update({
+                                      'gelecek': todaysDate,
+                                    });
+                                  });
                                 });
-                              });
-                            },
+                              },
+                              child: Container(
+                                  width: size.width / 2.7,
+                                  height: size.height / 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Geleceği Gün",
+                                          style: textThemeDefault.bodyText1!
+                                              .copyWith(
+                                                  color: colorWhite,
+                                                  fontSize: 16)))),
+                            ),
                           ),
                         ),
                       ],
@@ -315,68 +391,92 @@ class _EvciIzinState extends State<EvciIzin> {
                                     color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700))),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: DropdownButton<String>(
-                            value: dropdownValue7,
-                            hint: const Text("Gideceği Gün",
-                                style: TextStyle(color: colorBlack)),
-                            items: <String>['Cuma', 'Cumartesi', 'Pazar']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style:
-                                      const TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue7 = newValue!;
-                                FirebaseFirestore.instance
-                                    .collection('yurtapp')
-                                    .doc('evciizin')
-                                    .collection("beratsariboga")
-                                    .doc("beratsariboga")
-                                    .update({
-                                  'gelecek': dropdownValue7,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2024),
+                                ).then((date) {
+                                  setState(() {
+                                    dateTime = date!;
+                                    todaysDate =
+                                        "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                                    FirebaseFirestore.instance
+                                        .collection('yurtapp')
+                                        .doc('evciizin')
+                                        .collection("beratsariboga")
+                                        .doc("beratsariboga")
+                                        .update({
+                                      'gidecek': todaysDate,
+                                    });
+                                  });
                                 });
-                              });
-                            },
+                              },
+                              child: Container(
+                                  width: size.width / 2.7,
+                                  height: size.height / 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Gideceği Gün",
+                                          style: textThemeDefault.bodyText1!
+                                              .copyWith(
+                                                  color: colorWhite,
+                                                  fontSize: 16)))),
+                            ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: DropdownButton<String>(
-                            value: dropdownValue8,
-                            hint: const Text("Geleceği Gün",
-                                style: TextStyle(color: colorBlack)),
-                            items: <String>['Cuma', 'Cumartesi', 'Pazar']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style:
-                                      const TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue8 = newValue!;
-                                FirebaseFirestore.instance
-                                    .collection('yurtapp')
-                                    .doc('evciizin')
-                                    .collection("beratsariboga")
-                                    .doc("beratsariboga")
-                                    .update({
-                                  'gidecek': dropdownValue8,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: InkWell(
+                              onTap: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2024),
+                                ).then((date) {
+                                  setState(() {
+                                    dateTime = date!;
+                                    todaysDate =
+                                        "${dateTime!.day}.${dateTime!.month}.${dateTime!.year}";
+                                    FirebaseFirestore.instance
+                                        .collection('yurtapp')
+                                        .doc('evciizin')
+                                        .collection("beratsariboga")
+                                        .doc("beratsariboga")
+                                        .update({
+                                      'gelecek': todaysDate,
+                                    });
+                                  });
                                 });
-                              });
-                            },
+                              },
+                              child: Container(
+                                  width: size.width / 2.7,
+                                  height: size.height / 25,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(12.0),
+                                  ),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text("Geleceği Gün",
+                                          style: textThemeDefault.bodyText1!
+                                              .copyWith(
+                                                  color: colorWhite,
+                                                  fontSize: 16)))),
+                            ),
                           ),
                         ),
                       ],
