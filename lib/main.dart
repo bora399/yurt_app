@@ -5,7 +5,7 @@ import 'package:yurt_app/pages/firstpage.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(); 
   runApp(const OrganizationApp());
 }
 
@@ -21,7 +21,7 @@ class _OrganizationAppState extends State<OrganizationApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner:  false,
       title:"Dijital Pansiyon",
       home:FirstPage(),
     );

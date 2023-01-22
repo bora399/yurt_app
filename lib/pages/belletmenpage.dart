@@ -57,6 +57,12 @@ class BelletmenPage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Center(
+                        child:Container(
+                          width:size.width/5,
+                          child:Image.asset("assets/logo.png")
+                        ),
+                      ),
                     Padding(
                       padding:const EdgeInsets.all(20.0),
                       child:Container(

@@ -47,25 +47,27 @@ class _UlasPageState extends State<UlasPage> {
                 addVerticalSpace(size.height/100),
                 InkWell(
                   onTap:(){
-                    if(controller.text == "Bora Saltik"){
-                      showOgrenci(context,"Bora Saltık","101","00000000000","00000000000","00000000000","Tekirdağ Fen Lisesi","ABRH+");
+                    controller.text = controller.text.toLowerCase();
+                    print(controller.text);
+                    if(controller.text == "bora saltik"){
+                      showOgrenci(context,"Bora Saltık","101","1031668xxxx","0551594xxxx","0545711xxxx","Tekirdağ Fen Lisesi","ABRH+");
                     }
-                    else if(controller.text == "Enes Tunahan Cankaya"){
+                    else if(controller.text == "enes tunahan cankaya"){
                       showOgrenci(context,"Enes Tunahan Çankaya","101","00000000000","00000000000","00000000000","Tekirdağ Sosyal Bilimler Lisesi","ARH+");
                     }
-                    else if(controller.text == "Berat Sariboga"){
+                    else if(controller.text == "berat sariboga"){
                       showOgrenci(context,"Berat Sarıboğa","101","00000000000","00000000000","00000000000","Tekirdağ Sosyal Bilimler Lisesi","0RH-");
                     }
-                    else if(controller.text == "Ahmet Ozturk"){
+                    else if(controller.text == "ahmetozturk"){
                       showOgrenci(context,"Ahmet Öztürk","101","00000000000","00000000000","00000000000","Tekirdağ Sosyal Bilimler Lisesi","0RH+");
                     }
-                    else if(controller.text == "Arda Aktaş"){
+                    else if(controller.text == "arda aktas"){
                       showOgrenci(context,"Arda Aktas","102","00000000000","00000000000","00000000000","Tekirdag Fen Lisesi","BRH+");
                     }
-                    else if(controller.text == "Aydin Alp Saygi"){
+                    else if(controller.text == "aydin alp saygi"){
                       showOgrenci(context,"Aydın Alp Saygi","102","00000000000","00000000000","00000000000","Tekirdag Fen Lisesi","ARH+");
                     }
-                    else if(controller.text == "Alperen Aptiogullari"){
+                    else if(controller.text == "alperen aptiogullari"){
                       showOgrenci(context,"Alperen Aptiogullari","101","00000000000","00000000000","00000000000","Tekirdag Fen Lisesi","ABRH-");
                     }
 

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:yurt_app/pages/idare/gorevliogretmenbildir.dart';
 import 'package:yurt_app/pages/idare/showacildurum.dart';
+import 'package:yurt_app/pages/idare/showduyuru.dart';
+import 'package:yurt_app/pages/idare/showetutyoklama.dart';
 import 'package:yurt_app/pages/ogrenci/acildurum.dart';
 import 'package:yurt_app/utils/constants.dart';
 import 'package:yurt_app/utils/widget_funcs.dart';
 import 'package:yurt_app/widgets/button.dart';
+
+import 'belletmen/yoklama-izin/etutyoklama.dart';
+import 'idare/showyatyoklama.dart';
 
 class IdarePage extends StatelessWidget {
   final String mail;
@@ -59,6 +65,12 @@ class IdarePage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Center(
+                        child:Container(
+                          width:size.width/5,
+                          child:Image.asset("assets/logo.png")
+                        ),
+                      ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Container(
@@ -111,9 +123,76 @@ class IdarePage extends StatelessWidget {
                                     Icon(Icons.report_problem,
                                         color: Colors.white, size: 27),
                                     addVerticalSpace(6),
-                                    Text("Arıza Bildir",
+                                    Text("Acil Durum Bildir",
                                         style: textThemeDefault.bodyText1!
-                                            .copyWith(fontSize: 16))
+                                            .copyWith(fontSize: 13))
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12.0),
+                          child: InkWell(
+                            onTap: () {
+                              duyuruBildir(context);
+                            },
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Container(
+                                width: size.width / 3.5,
+                                height: size.height / 7,
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 51, 123, 181),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.announcement,
+                                        color: Colors.white, size: 27),
+                                    addVerticalSpace(6),
+                                    Text("Duyuru Bildir",
+                                        style: textThemeDefault.bodyText1!
+                                            .copyWith(fontSize: 13))
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        ButtonWidget(widget:ShowYatYoklama(),icon:Icons.people,text:"Yat Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                      ],
+                    ),
+                    addVerticalSpace(size.width / 20),
+                    Row(
+                      children: [
+                        ButtonWidget(widget:ShowEtutYoklama(),icon:Icons.people,text:"Etüt Yoklama",theme: textThemeDefault.bodyText1!.copyWith(fontSize:16)),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 12.0),
+                          child: InkWell(
+                            onTap: () {
+                              gorevliOgretmenBildir(context);
+                            },
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Container(
+                                width: size.width / 3.5,
+                                height: size.height / 7,
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(255, 51, 123, 181),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(8))),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.announcement,
+                                        color: Colors.white, size: 27),
+                                    addVerticalSpace(6),
+                                    Text("Görevli Ö. Ekle",
+                                        style: textThemeDefault.bodyText1!
+                                            .copyWith(fontSize: 15))
                                   ],
                                 ),
                               ),
@@ -121,10 +200,6 @@ class IdarePage extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                    addVerticalSpace(size.width / 20),
-                    Row(
-                      children: const [],
                     ),
                   ],
                 ),
